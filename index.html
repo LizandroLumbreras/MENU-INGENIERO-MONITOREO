@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú Principal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00416A">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00416A, #E4E5E6);
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+
+    .contenido {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      z-index: 2;
+    }
+
+    .menu-button {
+      background-color: white;
+      color: #00416A;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      min-width: 220px;
+      text-align: center;
+    }
+
+    .menu-button:hover {
+      background-color: #00416A;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .marca-agua {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.08;
+      z-index: 0;
+      max-width: 80%;
+      height: auto;
+      pointer-events: none;
+    }
+
+    footer {
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: #333;
+      background-color: #f2f2f2;
+      padding: 15px 10px;
+      border-top: 1px solid #ccc;
+    }
+
+    footer span {
+      color: #00416A;
+    }
+.bloques-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  z-index: 2;
+  margin-top: 30px;
+}
+
+.bloque {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  min-width: 260px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bloque h2 {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+  </style>
+</head>
+<body>
+  <img src="logo_proveedora.png" alt="Logo La Proveedora" class="marca-agua">
+
+ <div class="bloques-container">
+  <!-- Bloque MONITOREO -->
+  <div class="bloque">
+    <h2>MONITOREO</h2>
+    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/Monitoreo-Zapata/'">
+      Salidas Zapata
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/INVENTARIO-ZAPATA/'">
+      Stock Zapata
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/SROCK-CIGARRO-ENTRADAS-SALIDAS/'">
+      Stock Cigarro
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/MONITOREO-MERMA/'">
+      Monitoreo de Mermas
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://licaptio.github.io/MENUADMONPROTEC25/DEUDAV2.0/DONMORRISDEUDA.html'">
+      Visor Facturas Proveedora
+    </button>
+  </div>
+
+  <!-- Bloque ESTADOS FINANCIEROS -->
+  <div class="bloque">
+    <h2>ESTADOS FINANCIEROS</h2>
+    <button class="menu-button" onclick="window.location.href='https://licaptio.github.io/MENUADMONPROTEC25/FINANCIEROPDD/ESTINGPDD.html'">
+      Estado Financiero PDD
+    </button>
+  </div>
+</div>
+
+  <footer>
+    © 2025 <span>Menu Monitoreo Proveedora</span> · Desarrollo en proceso
+  </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registrado'))
+        .catch(error => console.log('Error al registrar el Service Worker:', error));
+    }
+  </script>
+</body>
+</html>
