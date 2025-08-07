@@ -111,9 +111,13 @@
     <button class="menu-button volver-btn" onclick="mostrarPantalla('principal')">← Volver</button>
   </div>
 
-  <div id="pantalla-productos" class="pantalla">
-    <h2>CATALAGO PRODUCTOS PROVEEDORA</h2>
-    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/AGREGAR-PRODUCTOS/'">Productos Proveedora</button>
+  <!-- Pantalla PRODUCTOS -->
+<div id="pantalla-productos" class="pantalla">
+  <h2>CATALAGO PRODUCTOS PROVEEDORA</h2>
+  <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/AGREGAR-PRODUCTOS/'">Productos Proveedora</button>
+  <button class="menu-button volver-btn" onclick="mostrarPantalla('principal')">← Volver</button>
+</div>
+
 
   <!-- Pantalla ESTADOS FINANCIEROS -->
   <div id="pantalla-financieros" class="pantalla">
@@ -131,6 +135,7 @@
       const secciones = {
         'principal': document.getElementById('pantalla-principal'),
         'monitoreo': document.getElementById('pantalla-monitoreo'),
+        'productos': document.getElementById('pantalla-productos'),
         'financieros': document.getElementById('pantalla-financieros')
       };
       for (const key in secciones) {
