@@ -6,6 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#00416A">
   <style>
+    :root{
+      --logo-max-width: 900px;
+      --logo-opacity: 0.18;     /* visibilidad del logo */
+      --shine-strength: 0.15;   /* intensidad del brillo */
+      --shine-core: 0.40;       /* pico del brillo */
+      --shine-blur: 0.6px;      /* difuminado del brillo */
+      --shine-speed: 7s;        /* velocidad del destello */
+    }
+
     * { box-sizing: border-box; }
 
     body {
@@ -19,6 +28,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
 
     .pantalla {
@@ -27,11 +38,9 @@
       align-items: center;
       gap: 15px;
       width: 100%;
+      z-index: 1;
     }
-
-    .pantalla.activa {
-      display: flex;
-    }
+    .pantalla.activa { display: flex; }
 
     .boton-menu, .menu-button {
       background-color: white;
@@ -46,7 +55,6 @@
       min-width: 250px;
       text-align: center;
     }
-
     .boton-menu:hover, .menu-button:hover {
       background-color: #00416A;
       color: white;
@@ -60,15 +68,40 @@
       padding-bottom: 10px;
     }
 
+    /* ===== Marca de agua con logo, cristal sutil y brillo ===== */
     .marca-agua {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.06;
-      z-index: 0;
-      max-width: 90%;
+      inset: 0;
+      display: grid;
+      place-items: center;
       pointer-events: none;
+      z-index: 0;
+    }
+        /* Brillo/destello sutil */
+    .marca-agua .shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+                  transparent 0%,
+                  rgba(255,255,255, calc(var(--shine-strength) * 0.6)) 38%,
+                  rgba(255,255,255, var(--shine-core)) 50%,
+                  rgba(255,255,255, calc(var(--shine-strength) * 0.6)) 62%,
+                  transparent 100%);
+      transform: translateX(-120%) skewX(-12deg);
+      filter: blur(var(--shine-blur));
+      animation: shine-move var(--shine-speed) linear infinite;
+    }
+
+    @keyframes shine-move {
+      0%   { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+      8%   { opacity: 1; }
+      16%  { transform: translateX(120%) skewX(-12deg); opacity: 1; }
+      18%  { opacity: 0; }
+      100% { transform: translateX(120%) skewX(-12deg); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marca-agua .shine { animation: none; opacity: 0; }
     }
 
     footer {
@@ -80,6 +113,7 @@
       color: #00416A;
       padding: 10px;
       font-size: 13px;
+      z-index: 2;
     }
 
     .volver-btn {
@@ -88,11 +122,54 @@
       background-color: #ccc;
       color: #00416A;
     }
+.marca-agua {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fondo-cristal {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px) saturate(140%) contrast(110%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%) contrast(110%);
+}
+
+.logo-visible {
+  max-width: 1000px;
+  opacity: 0.08;
+  z-index: 1;
+}
+
+.shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+              transparent 0%,
+              rgba(255,255,255, 0.2) 40%,
+              rgba(255,255,255, 0.6) 50%,
+              rgba(255,255,255, 0.2) 60%,
+              transparent 100%);
+  transform: translateX(-120%) skewX(-12deg);
+  animation: shine-move 6s ease-in-out infinite;
+  filter: blur(1px);
+  z-index: 2;
+}
   </style>
 </head>
 <body>
 
-  <img src="logo_proveedora.webp" alt="Logo La Proveedora" class="marca-agua">
+  <!-- Marca de agua -->
+  <!-- Marca de agua mejorada -->
+<div class="marca-agua" aria-hidden="true">
+  <div class="fondo-cristal"></div>
+  <img src="logo_proveedora.webp" class="logo-visible" alt="Logo">
+  <div class="shine"></div>
+  </div>
 
   <!-- Pantalla principal -->
   <div id="pantalla-principal" class="pantalla activa">
@@ -112,12 +189,11 @@
   </div>
 
   <!-- Pantalla PRODUCTOS -->
-<div id="pantalla-productos" class="pantalla">
-  <h2>CATALAGO PRODUCTOS PROVEEDORA</h2>
-  <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/AGREGAR-PRODUCTOS/'">Productos Proveedora</button>
-  <button class="menu-button volver-btn" onclick="mostrarPantalla('principal')">← Volver</button>
-</div>
-
+  <div id="pantalla-productos" class="pantalla">
+    <h2>CATALAGO PRODUCTOS PROVEEDORA</h2>
+    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/AGREGAR-PRODUCTOS/'">Productos Proveedora</button>
+    <button class="menu-button volver-btn" onclick="mostrarPantalla('principal')">← Volver</button>
+  </div>
 
   <!-- Pantalla ESTADOS FINANCIEROS -->
   <div id="pantalla-financieros" class="pantalla">
@@ -138,12 +214,9 @@
         'productos': document.getElementById('pantalla-productos'),
         'financieros': document.getElementById('pantalla-financieros')
       };
-      for (const key in secciones) {
-        secciones[key].classList.remove('activa');
-      }
+      for (const key in secciones) { secciones[key].classList.remove('activa'); }
       secciones[pantalla].classList.add('activa');
     }
   </script>
-
 </body>
 </html>
