@@ -129,7 +129,16 @@
       background-color: #ccc;
       color: #00416A;
     }
-  </style>
+  .menu-grid{
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    justify-items: center;
+  }
+  .menu-grid .menu-button{ width: 100%; }
+ </style>
 </head>
 <body>
 
@@ -148,15 +157,24 @@
     <button class="boton-menu" onclick="window.location.href='https://licaptio.github.io/MENUADMONPROTEC25/LISTAPRECIOSPDD/'">LISTA PRECIOS</button>
   </div>
 
-  <!-- Pantalla MONITOREO -->
-  <div id="pantalla-monitoreo" class="pantalla">
-    <h2>REPORTES DE INVENTARIOS ALMACENES</h2>
+ <!-- Pantalla MONITOREO -->
+<div id="pantalla-monitoreo" class="pantalla">
+  <h2>REPORTES DE INVENTARIOS ALMACENES</h2>
+
+  <div class="menu-grid">
     <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/Monitoreo-Zapata/'">Tarjetas de Salidas Zapata</button>
     <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/INVENTARIO-ZAPATA/'">Stock Zapata</button>
     <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/SROCK-CIGARRO-ENTRADAS-SALIDAS/'">Stock Cigarro</button>
     <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/MONITOREO-MERMA/'">Tarjetas de Mermas</button>
-    <button class="menu-button volver-btn" onclick="mostrarPantalla('principal')">← Volver</button>
+    <!-- ✅ NUEVO: Monitoreo – Salidas Dulces -->
+    <button class="menu-button" onclick="window.location.href='https://lizandrolumbreras.github.io/MONITOREO-SALIDAS-DULCES/'">Tarjetas de Salidas Dulces</button>
+    <!-- 👇 Puedes ir agregando más accesos aquí con el mismo patrón:
+    <button class="menu-button" onclick="window.location.href='URL_AQUI'">Texto del botón</button>
+    -->
   </div>
+
+  <button class="menu-button volver-btn" onclick="mostrarPantalla('principal')">← Volver</button>
+</div>
 
   <!-- Pantalla PRODUCTOS -->
   <div id="pantalla-productos" class="pantalla">
